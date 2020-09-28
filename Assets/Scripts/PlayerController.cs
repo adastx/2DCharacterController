@@ -90,10 +90,9 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D collision) {
         for (int i = 0; i < collision.contactCount; i++) {
-            int angle = Mathf.RoundToInt(Vector2.Angle(Vector2.up, collision.contacts[i].normal));
             int velAngle = Mathf.RoundToInt(Vector2.Angle(playerVelocity, collision.contacts[i].normal));
-
             if (velAngle >= 90 || playerVelocity == Vector2.zero) {
+                int angle = Mathf.RoundToInt(Vector2.Angle(Vector2.up, collision.contacts[i].normal));
                 if (angle < 90) {
                     groundNormal = collision.contacts[i].normal;
                     if (angle <= maxSlopeAngle)
