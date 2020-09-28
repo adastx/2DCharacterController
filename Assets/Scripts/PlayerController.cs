@@ -93,19 +93,13 @@ public class PlayerController : MonoBehaviour
             int angle = Mathf.RoundToInt(Vector2.Angle(Vector2.up, collision.contacts[i].normal));
             int velAngle = Mathf.RoundToInt(Vector2.Angle(playerVelocity, collision.contacts[i].normal));
 
-            if (angle < 90) {
-                if (velAngle >= 90 || playerVelocity == Vector2.zero) {
+            if (velAngle >= 90 || playerVelocity == Vector2.zero) {
+                if (angle < 90) {
                     groundNormal = collision.contacts[i].normal;
                     if (angle <= maxSlopeAngle)
                         isGrounded = true;
-                }
-            } else if (angle == 90) {
-                if (velAngle >= 90)
-                    playerVelocity.x = 0;
-            } else if (angle >= 90) {
-                if(playerVelocity.y > 0) {
+                } else { 
                     playerVelocity -= Vector2.Dot(playerVelocity, collision.contacts[i].normal) * collision.contacts[i].normal;
-                    playerVelocity.y = -gravityStrength * Time.fixedDeltaTime;
                 }
             }
         }
