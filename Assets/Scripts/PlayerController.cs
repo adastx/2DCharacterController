@@ -56,6 +56,15 @@ public class PlayerController : MonoBehaviour
 
         playerVelocity -= Vector2.Dot(playerVelocity, groundNormal) * groundNormal;
     }
+    
+    private void AirMove() {
+        playerVelocity.y -= gravityStrength * Time.fixedDeltaTime;
+
+        Accelerate(airAcceleration);
+
+        if (groundNormal != Vector2.up)
+            playerVelocity -= Vector2.Dot(playerVelocity, groundNormal) * groundNormal;
+    }
 
     private void ApplyFriction(float friction) {
         float reduction = friction * Time.fixedDeltaTime;
@@ -77,15 +86,6 @@ public class PlayerController : MonoBehaviour
             int wishDir = Mathf.RoundToInt(Input.GetAxisRaw("Horizontal"));
             playerVelocity.x += wishDir * moveSpeed * acceleration * Time.fixedDeltaTime;
         }
-    }
-
-    private void AirMove() {
-        playerVelocity.y -=  gravityStrength * Time.fixedDeltaTime;
-
-        Accelerate(airAcceleration);
-
-        if (groundNormal != Vector2.up)
-            playerVelocity -= Vector2.Dot(playerVelocity, groundNormal) * groundNormal;
     }
 
     private void OnCollisionStay2D(Collision2D collision) {
