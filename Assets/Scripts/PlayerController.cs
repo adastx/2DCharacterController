@@ -71,7 +71,9 @@ public class PlayerController : MonoBehaviour
     }
 
     private void Accelerate(float acceleration) {
-        if (Mathf.Abs(playerVelocity.x) < moveSpeed) {
+        float currentSpeed = isGrounded ? playerVelocity.magnitude : playerVelocity.x;
+
+        if (currentSpeed < moveSpeed) {
             int wishDir = Mathf.RoundToInt(Input.GetAxisRaw("Horizontal"));
             playerVelocity.x += wishDir * moveSpeed * acceleration * Time.fixedDeltaTime;
         }
